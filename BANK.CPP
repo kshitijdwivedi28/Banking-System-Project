@@ -79,7 +79,25 @@ void write_account()
     fp.close();
    }
 
-
+void display_sp(int n)
+{
+    clrscr();
+    cout<<"\nBALANCE DETAILS\n";
+    int flag=0;
+    fp.open("account.dat",ios::in);
+    while(fp.read((char*)&ac,sizeof(account)))
+	{
+	 if(ac.retacno()==n)
+		{
+		 ac.show_account();
+		 flag=1;
+		}
+	}
+    fp.close();
+if(flag==0)
+ cout<<"\n\nAccount number does not exist.";
+    getch();
+}
 void modify_account()
 {
     int no,found=0;
@@ -107,7 +125,52 @@ void modify_account()
     cout<<"\n\n Record Not Found. ";
     getch();
 }
+void delete_account()
+   {
+    int no;
+    clrscr();
+    cout<<"\n\n\n\tDelete Record";
+    cout<<"\n\nEnter The account no. of the customer whose account You Want To Delete :: ";
+    cin>>no;
+    fp.open("account.dat",ios::in|ios::out);
+    fstream fp2;
+    fp2.open("Temp.dat",ios::out);
+    fp.seekg(0,ios::beg);
+    while(fp.read((char*)&ac,sizeof(account)))
+	{
+	 if(ac.retacno()!=no)
+		{
+		 fp2.write((char*)&ac,sizeof(account));
+		 }
+	 }
+    fp2.close();
+    fp.close();
+    remove("account.dat");
+    rename("Temp.dat","account.dat");
+    cout<<"\n\n\tRecord Deleted ..";
+    getch();
+    }
+    void display_all()
+    {
+     clrscr();
+     fp.open("account.dat",ios::in);
+     if(!fp)
+     {
+       cout<<"ERROR!!! FILE COULD NOT BE OPENED. \n\nFirst please create the file./n/nThank You.";
+       getch();
+       return;
+     }
+     else{
+     cout<<"\n\n\t\tACCOUNT HOLDER LIST\n\n";
+	  cout<<"====================================================\n";
+	  cout<<"A/c no.\tNAME\t\tType\t\tBalance\n";
+	  cout<<"====================================================\n";
 
+      while(fp.read((char*)&ac,sizeof(account)))
+	 ac.report();
+      }
+     fp.close();
+}
 void deposit_withdraw(int option)
 {
     int no,found=0,amt;
@@ -153,7 +216,12 @@ void deposit_withdraw(int option)
 void intro()
 {
  clrscr();
- cout << "BANKING SYSTEM" << endl;
+ gotoxy(36,11);
+ cout<<"BANKING";
+ gotoxy(35,14);
+ cout<<"MANAGEMENT";
+ gotoxy(36,17);
+ cout<<"SYSTEM";
  getch();
 
 }
