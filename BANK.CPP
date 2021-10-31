@@ -24,16 +24,6 @@ class account
 	 cin>>deposit;
 	 cout<<"\n\n\nAccount Created..";
 	 }
-
-	void show_account()
-	{
-	 cout<<"\nAccount No. ::  "<<acno;
-	 cout<<"\nAccount Holder Name ::  ";
-	 puts(name);
-	 cout<<"\nType of Account ::  "<<type;
-	 cout<<"\nBalance amount ::  "<<deposit;
-	 }
-
 	void modify_account()
 	{
 	 cout<<"\nModify Account No. ::  "<<acno;
@@ -44,6 +34,16 @@ class account
 	 cout<<"\nModify Balance amount :: ";
 	 cin>>deposit;
 	 }
+
+	void show_account()
+	{
+	 cout<<"\nAccount No. ::  "<<acno;
+	 cout<<"\nAccount Holder Name ::  ";
+	 puts(name);
+	 cout<<"\nType of Account ::  "<<type;
+	 cout<<"\nBalance amount ::  "<<deposit;
+	 }
+
 
 void dep(int x)
 {
